@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Match & Meet</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body><div id="app">
+
+<section class="scr dark on" id="login">
+ <div class="ph hero" style="--a:#6b4a3a;--b:#1c2540"></div>
+ <div class="glass"><h1>Login</h1>
+  <label for="em">Email or phone</label><input id="em" autocomplete="off">
+  <label for="pw">Password</label><input id="pw" type="password">
+  <div style="text-align:right;margin-top:6px"><button class="link">Forgot password?</button></div>
+  <button class="cta" onclick="go('home')">Login</button>
+  <div style="text-align:center;margin-top:12px"><button class="link">Don't have an account? Sign up</button></div>
+ </div>
+</section>
+
+<section class="scr" id="home">
+ <div class="top"><div class="av ph" style="--a:#8a6a55;--b:#3c2f2a"></div><div><div style="font-weight:500">Good morning!</div><div style="font-size:12px;color:var(--mut)">James Bond</div></div></div>
+ <div class="scroll">
+  <h3>Stories</h3><div class="stories" id="stories"></div>
+  <h3>Most popular</h3><div class="row" id="pop"></div>
+  <h3>Best matches</h3><div class="grid" id="best"></div>
+ </div>
+</section>
+
+<section class="scr dark" id="disc">
+ <div class="deck" id="deck"></div>
+ <div class="acts">
+  <button class="ac" aria-label="Undo" onclick="undo()"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+  <button class="ac" style="color:var(--p)" aria-label="Pass" onclick="swipe(-1)"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <button class="ac" style="color:#8c9cff" aria-label="Super like" onclick="swipe(1,true)"><svg viewBox="0 0 24 24" style="fill:currentColor"><path d="m12 3 2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 17l-5.6 3 1.3-6.2L3 9.5l6.3-.7z"/></svg></button>
+  <button class="ac" style="color:var(--p)" aria-label="Like" onclick="swipe(1)"><svg viewBox="0 0 24 24" style="fill:currentColor"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/></svg></button>
+  <button class="ac" style="color:#8c9cff" aria-label="Message" onclick="go('chats')"><svg viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/></svg></button>
+ </div>
+</section>
+
+<section class="scr" id="likes"><div class="top"><h3 style="margin:0;font-size:20px">People you liked</h3></div><div class="scroll"><div class="grid" id="llist"></div></div></section>
+
+<section class="scr dark" id="call" style="z-index:30;align-items:center;justify-content:center;text-align:center;gap:10px">
+ <div class="ph" id="vid" style="position:absolute;inset:0;display:none"></div>
+ <div class="ph" id="self" style="position:absolute;top:60px;right:16px;width:90px;height:120px;border-radius:14px;border:2px solid #fff;z-index:2;display:none;--a:#8a6a55;--b:#3c2f2a"></div>
+ <div class="av ph" id="kav" style="width:110px;height:110px;position:relative;z-index:2"></div>
+ <h2 id="kn" style="position:relative;z-index:2"></h2><p id="kt" style="position:relative;z-index:2;opacity:.8">Calling…</p>
+ <div style="position:absolute;bottom:60px;display:flex;gap:16px;z-index:2">
+  <button class="ac" aria-label="Mute" id="mute" onclick="this.style.background=this.style.background?'':'var(--pd)'"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+  <button class="ac" aria-label="End call" style="background:#e5254b;width:60px;height:60px" onclick="endCall()"><svg viewBox="0 0 24 24"><path d="M3 15c5-5 13-5 18 0l-3 3-3-2v-3a9 9 0 0 0-6 0v3l-3 2z"/></svg></button>
+ </div></section>
+
+<section class="scr" id="chats"><div class="top"><h3 style="margin:0;font-size:20px">Messages</h3></div><div class="scroll" id="clist"></div></section>
+
+<section class="scr" id="chat"><div class="hd"><button onclick="go('chats')" aria-label="Back">‹</button><div class="av ph" id="cav"></div><b id="cname" style="flex:1"></b><button class="ac" style="background:none;border:0;color:var(--p);width:38px;height:38px" aria-label="Audio call" onclick="startCall('audio')"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></button><button class="ac" style="background:none;border:0;color:var(--p);width:38px;height:38px" aria-label="Video call" onclick="startCall('video')"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="m16 10 6-3v10l-6-3z"/></svg></button></div><div class="msgs" id="msgs"></div>
+ <div class="send"><input id="ci" placeholder="Write a message" onkeydown="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()" aria-label="Send">➤</button></div></section>
+
+<section class="scr" id="me"><div class="top" style="justify-content:center;padding-bottom:12px;border-bottom:1px solid #eee"><b style="font-size:17px">Settings and activity</b></div>
+ <div class="scroll" id="mebody"></div></section>
+
+<section class="scr" id="set"><div class="top" style="border-bottom:1px solid #eee"><button onclick="go('me')" aria-label="Back" style="font-size:28px;width:30px">‹</button><b id="stt" style="flex:1;text-align:center;margin-right:30px;font-size:17px"></b></div><div class="scroll" id="sbody"></div></section>
+
+<section class="scr" id="match"><h2>It's a match!</h2><p id="mt"></p><div class="pair"><div class="av ph" style="--a:#8a6a55;--b:#3c2f2a"></div><div class="av ph" id="mav"></div></div>
+ <button class="cta" style="max-width:240px" onclick="openChat(cur.id);">Say hello</button><button class="ghost" onclick="go('disc')">Keep swiping</button></section>
+
+<nav id="nav" style="display:none">
+ <button data-s="home" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v10H3z"/></svg></button>
+ <button data-s="disc" aria-label="Discover"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 5-5 1 2-5z"/></svg></button>
+ <button data-s="likes" aria-label="Liked people"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.500 4.500 0 0 1 8-2.800A4.500 4.500 0 0 1 20 10c0 5.800-8 11-8 11z"/></svg></button>
+ <button data-s="chats" aria-label="Chats"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></button>
+ <button data-s="me" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+</nav>
+</div>
+<script src="app.js"></script></body></html>
