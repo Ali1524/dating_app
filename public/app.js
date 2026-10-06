@@ -105,4 +105,4 @@ function renderChats(){const ids=Object.keys(chats);$('#clist').innerHTML=ids.le
 function openChat(i){cur=P[i];chats[i]=chats[i]||[{t:'Hey! 👋',me:false}];$('#cname').textContent=cur.n;$('#cav').style.cssText=`--a:${cur.c[0]};--b:${cur.c[1]}`;paint();go('chat');$('#nav').style.display='none'}
 function paint(){const m=$('#msgs');m.innerHTML=chats[cur.id].map(x=>`<div class="m ${x.me?'me':''}">${x.t}</div>`).join('');m.scrollTop=1e5}
 function sendMsg(){const v=$('#ci').value.trim();if(!v)return;const c=chats[cur.id];c.push({t:v,me:true});$('#ci').value='';paint();
- const r=['Haha, tell me more!','That sounds fun 😊','Coffee this weekend?','I was thinking the same!'];setTimeout(()=>{c.push({t:r[Math.random()*r.length|0],me:false});paint()},900)}
+ const replies=['Haha, tell me more!','That sounds fun 😊','Coffee this weekend?','I was thinking the same!'];setTimeout(()=>{c.push({t:replies[Math.random()*replies.length|0],me:false});paint()},900)}
